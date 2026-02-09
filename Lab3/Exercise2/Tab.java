@@ -1,20 +1,55 @@
 class Tab {
     public static void sort( int [ ] tab ){
-//COMPLETE WITH SOLUTION LAB2
+        int i, j, min, tmp;
+        for(i = 0; i < tab.length - 1; i++) {
+            min = i;
+            for(j = i + 1; j < tab.length; j++) {
+                if(tab[j] < tab[min]) {
+                    min = j;
+                }
+            }
+            tmp = tab[min];
+            tab[min] = tab[i];
+            tab[i] = tmp;
+        }
     }
 
     public static int average(int[] tab){
-//COMPLETE WITH SOLUTION LAB2
+        int i, sum, average;
+        sum = 0;
+        average = 0;
+
+        for(i = 0; i < tab.length; i++) {
+            sum += tab[i];
+        }
+
+        average = sum / tab.length;
+
+        return average;
     }
 
     public static int count(int[] tab, int val){
+        int counter = 0;
+        int i;
 
-        //YOUR CODE HERE
+        for (i = 0; i < tab.length; i++) {
+            if (tab[i] < val) {
+                counter++;
+            }
+        }
+        return counter;
     }
 
     public static void split(int[] tab,int[] smallTab, int val){
-        //YOUR CODE HERE
+        int j = 0;
+        int i;
 
+        for (i = 0; i < tab.length; i++) {
+            if (tab[i] < val) {
+                smallTab[j] = tab[i];
+                j++;
+            }
+        }
     }
 
     public static void main (String args [ ] )
