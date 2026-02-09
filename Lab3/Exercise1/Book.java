@@ -47,13 +47,15 @@ public class Book {
 
     public void setPrice(double p) {
         if (fixedPrice ) {
-            // YOUR CODE LINE COMES HERE
+            System.err.println("Price is fixed!");
         }
         else if (p >= 0.0) {
-            //YOUR PIECE OF CODE COMES HERE
+            price = p;
+            fixedPrice = true;
+            accountant.count(this);
         }
         else {
-            // YOUR CODE LINE COMES HERE
+            System.err.println("Error: negative price!");
         }
     }
 
