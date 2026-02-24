@@ -1,4 +1,3 @@
-
 public class Contract extends Employee {
 
     private double nbHours = -1.0;
@@ -7,20 +6,36 @@ public class Contract extends Employee {
     private static final double dueHour  = 40.0;
 
     Contract(String name) {
-        // YOUR CODE COMES HERE
+        super(name);
     }
 
     Contract (String name, double nbHours, double hourRate, double percentHourSup) {
-        // YOUR CODE COMES HERE
+        super(name);
+        this.nbHours = nbHours;
+        this.hourRate = hourRate;
+        this.percentHourSup = percentHourSup;
     }
 
     public void setSalaryInfo(double nbHours, double hourRate, double percentHourSup) {
-        // YOUR CODE COMES HERE
+        this.nbHours = nbHours;
+        this.hourRate = hourRate;
+        this.percentHourSup = percentHourSup;
     }
 
-
     public double getSalary() {
-        // YOUR CODE COMES HERE
+        if (nbHours == -1.0 || hourRate == -1.0 || percentHourSup == -1.0) {
+            return -1.0;
+        }
+
+        if (nbHours <= dueHour) {
+            return nbHours * hourRate;
+        } else {
+            double regularPay = dueHour * hourRate;
+            double overtimeHours = nbHours - dueHour;
+            double overtimeRate = hourRate * (1 + (percentHourSup / 100.0));
+
+            return regularPay + (overtimeHours * overtimeRate);
+        }
     }
 
     public double getNbHours() {
@@ -39,6 +54,4 @@ public class Contract extends Employee {
         return super.toString() + "; nbHours=" + nbHours
                 + "; Hour rate=" + hourRate + "; % Hour Sup=" + percentHourSup;
     }
-
 }
-
