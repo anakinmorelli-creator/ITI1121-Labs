@@ -1,22 +1,29 @@
-/*Exercise4-LAB8:ITI1121*/
-
 import java.io.*;
-public class Exercise4
-{
-    public static void main(String [] args) throws IOException, FileNotFoundException  {
+
+public class Exercise4 {
+    public static void main(String[] args) {
         InputStreamReader input = null;
         try {
-            input = new InputStreamReader( new FileInputStream("data.txt"));
-//ou: input = new InputStreamReader ("C:/YOUR PATH/write.txt");
-//YOUR PIECE OF THE CODE HERE
+            input = new InputStreamReader(new FileInputStream("data.txt"));
 
-        }
+            int data = input.read();
+            while (data != -1) {
+                System.out.print((char) data);
+                data = input.read();
+            }
 
-//YOUR PIECE OF THE CODE HERE
-
-        finally {
-            if ( input != null )
-                input.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("exception generated: " + e.getClass().getSimpleName());
+        } catch (IOException e) {
+            System.out.println("exception generated: " + e);
+        } finally {
+            try {
+                if (input != null) {
+                    input.close();
+                }
+            } catch (IOException e) {
+                // handle close error
+            }
             System.out.println();
             System.out.println("Inside finally");
         }
