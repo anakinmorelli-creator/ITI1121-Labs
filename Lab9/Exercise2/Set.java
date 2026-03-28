@@ -1,5 +1,3 @@
-
-
 public class Set {
 
     private static final String str = System.getProperty( "line.separator" );
@@ -9,16 +7,33 @@ public class Set {
 
     // Constructor
     public Set( int nbr ) {
-        // YOUR CODE COMES HERE
+        if (nbr < 1) {
+            throw new IllegalArgumentException(Integer.toString(nbr));
+        }
+        set = new Cashier[nbr];
+        for (int i = 0; i < nbr; i++) {
+            set[i] = new Cashier();
+        }
     }
 
     // Instance methods
     public void add (Client client) {
-        // YOUR CODE COMES HERE
+        int minIndex = 0;
+        int minSize = set[0].getQueueSize();
+
+        for (int i = 1; i < set.length; i++) {
+            if (set[i].getQueueSize() < minSize) {
+                minSize = set[i].getQueueSize();
+                minIndex = i;
+            }
+        }
+        set[minIndex].add(client);
     }
 
     public void servedClients( int currentTime ) {
-        // YOUR CODE COMES HERE
+        for (int i = 0; i < set.length; i++) {
+            set[i].servedClients(currentTime);
+        }
     }
 
     public String toString() {

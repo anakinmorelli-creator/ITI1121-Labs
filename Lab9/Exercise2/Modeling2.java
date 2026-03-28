@@ -1,5 +1,3 @@
-
-
 public class Modeling2 {
 
     private static final int SECONDS_PER_MINUTE = 60;
@@ -31,7 +29,19 @@ public class Modeling2 {
 
         while ( currentTime < Duration ) {
 
-            // YOUR CODE DEVELOPED IN EX1
+            if (Math.random() <= PROBABILITY_NEW_CLIENT) {
+                Client newClient = new Client(currentTime);
+                if (newClient.getItems() <= FAST_MAX_ITEMS) {
+                    fast.add(newClient);
+                } else {
+                    normal.add(newClient);
+                }
+            }
+
+            fast.servedClients(currentTime);
+            normal.servedClients(currentTime);
+
+            currentTime += ITER;
         }
 
         display();

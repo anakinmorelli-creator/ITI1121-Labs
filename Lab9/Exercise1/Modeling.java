@@ -1,4 +1,3 @@
-
 public class Modeling {
 
     private static final int SECONDS_PER_MINUTE = 60;
@@ -14,8 +13,9 @@ public class Modeling {
 
     // Constructor
     public Modeling( int duration ) {
-
-        // YOUR CODE
+        this.Duration = duration;
+        fast = new Cashier();
+        normal = new Cashier();
     }
 
     public void test() {
@@ -23,7 +23,19 @@ public class Modeling {
         int currentTime = 0;
 
         while ( currentTime < Duration ) {
-            // YOUR CODE
+            if (Math.random() <= PROBABILITY_NEW_CLIENT) {
+                Client newClient = new Client(currentTime);
+                if (newClient.getItems() <= FAST_MAX_ITEMS) {
+                    fast.add(newClient);
+                } else {
+                    normal.add(newClient);
+                }
+            }
+
+            fast.servedClients(currentTime);
+            normal.servedClients(currentTime);
+
+            currentTime += ITER;
         }
 
         display();

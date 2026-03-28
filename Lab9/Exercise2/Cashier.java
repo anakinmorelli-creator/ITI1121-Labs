@@ -1,4 +1,3 @@
-
 public class Cashier {
 
     private static final String str = System.getProperty( "line.separator" );
@@ -13,12 +12,16 @@ public class Cashier {
 
     //Constructor
     public Cashier(){
-        // YOUR CODE DEVELOPED IN EX1
+        queue = new ArrayQueue<Client>();
+        currentClient = null;
+        ClientTime = 0;
+        ClientsServed = 0;
+        ItemsDone = 0;
     }
 
     // Instance methods
     public void add( Client client ) {
-        // YOUR CODE DEVELOPED IN EX1
+        queue.enqueue(client);
     }
 
     public int getQueueSize() {
@@ -27,7 +30,25 @@ public class Cashier {
 
     public void servedClients( int currentTime ){
 
-        // YOUR CODE DEVELOPED IN EX1
+        if ( currentClient == null && queue.isEmpty() ) {
+            return;
+        }
+
+        // If currentClient is not null or the queue is not empty!
+        if (currentClient == null) {
+            currentClient = queue.dequeue();
+            ClientTime += (currentTime - currentClient.getArriveTime());
+        }
+
+        //serve
+        currentClient.serve();
+
+        // If current client is served
+        if (currentClient.getItems() == 0) {
+            ClientsServed++;
+            ItemsDone += currentClient.getItemsDone();
+            currentClient = null;
+        }
 
     }
 
