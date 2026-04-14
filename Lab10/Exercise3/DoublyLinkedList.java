@@ -1,14 +1,9 @@
-
-public class DoublyLinkedList implements List{
-
-    // Implementation of the doubly linked nodes (nested-class)
+public class DoublyLinkedList implements List {
 
     private static class Node {
-
         private Comparable value;
-
-        private Node previous;   //for the previous node
-        private Node next; //for the next node
+        private Node previous;
+        private Node next;
 
         private Node ( Comparable value, Node previous, Node next ) {
             this.value = value;
@@ -17,29 +12,50 @@ public class DoublyLinkedList implements List{
         }
     }
 
-    // Instance variables
     private Node head;
 
-    // Empty list.
     public DoublyLinkedList() {
-        // a dummy node is created
         head = new Node(null, null,null);
         head.next = head;
         head.previous = head;
     }
 
-    // Instance methods
     public int size() {
-        throw new UnsupportedOperationException( "error!" );
+        int count = 0;
+        Node current = head.next;
+        while (current != head) {
+            count++;
+            current = current.next;
+        }
+        return count;
     }
-
 
     public Object get( int pos ) {
-        throw new UnsupportedOperationException( "error!" );
+        if (pos < 0 || pos >= size()) {
+            throw new IndexOutOfBoundsException(Integer.toString(pos));
+        }
+        Node current = head.next;
+        for (int i = 0; i < pos; i++) {
+            current = current.next;
+        }
+        return current.value;
     }
 
+    @SuppressWarnings("unchecked")
     public boolean add( Comparable o ) {
-        throw new UnsupportedOperationException( "error!" );
+        if (o == null) {
+            throw new IllegalArgumentException("null argument");
+        }
+        Node current = head.next;
+
+        while (current != head && current.value.compareTo(o) < 0) {
+            current = current.next;
+        }
+
+        Node newNode = new Node(o, current.previous, current);
+        current.previous.next = newNode;
+        current.previous = newNode;
+        return true;
     }
 
     public void remove( int pos ) {

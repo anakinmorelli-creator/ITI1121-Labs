@@ -1,13 +1,8 @@
-
-
-public class DoublyLinkedList implements List{
+public class DoublyLinkedList implements List {
 
     // Implementation of the doubly linked nodes (nested-class)
-
     private static class Node {
-
         private Comparable value;
-
         private Node previous;   //for the previous node
         private Node next; //for the next node
 
@@ -31,9 +26,14 @@ public class DoublyLinkedList implements List{
 
     // Instance methods
     public int size() {
-        throw new UnsupportedOperationException( "error!" );
+        int count = 0;
+        Node current = head.next;
+        while (current != head) {
+            count++;
+            current = current.next;
+        }
+        return count;
     }
-
 
     public Object get( int pos ) {
         throw new UnsupportedOperationException( "error!" );
